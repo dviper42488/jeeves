@@ -5,25 +5,25 @@ steps:
     args:
       [
         "-c",
-        "docker build -t gcr.io/aivazis/jeeves:$BUILD_ID --target production .",
+        "docker build -t gcr.io/dviper42488/jeeves:$BUILD_ID --target production .",
       ]
   # push the docker image up to the registry
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/aivazis/jeeves:$BUILD_ID"]
+    args: ["push", "gcr.io/dviper42488/jeeves:$BUILD_ID"]
   # upgrade the chart pertaining to this service
-  - name: "gcr.io/aivazis/helm"
+  - name: "gcr.io/dviper42488/helm"
     args:
       [
         "upgrade",
         "--set",
-        "image=gcr.io/aivazis/jeeves:$BUILD_ID",
+        "image=gcr.io/dviper42488/jeeves:$BUILD_ID",
         "jeeves",
         "chart/",
       ]
     env:
       [
         "CLOUDSDK_COMPUTE_ZONE=us-central1-a",
-        "CLOUDSDK_CONTAINER_CLUSTER=aivazis",
+        "CLOUDSDK_CONTAINER_CLUSTER=dviper42488",
       ]
 
-images: ["gcr.io/aivazis/jeeves:$BUILD_ID"]
+images: ["gcr.io/dviper42488/jeeves:$BUILD_ID"]
