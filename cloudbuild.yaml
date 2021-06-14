@@ -10,20 +10,5 @@ steps:
   # push the docker image up to the registry
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/dviper42488/jeeves:$BUILD_ID"]
-  # upgrade the chart pertaining to this service
-  - name: "gcr.io/dviper42488/helm"
-    args:
-      [
-        "upgrade",
-        "--set",
-        "image=gcr.io/dviper42488/jeeves:$BUILD_ID",
-        "jeeves",
-        "chart/",
-      ]
-    env:
-      [
-        "CLOUDSDK_COMPUTE_ZONE=us-central1-a",
-        "CLOUDSDK_CONTAINER_CLUSTER=dviper42488",
-      ]
 
 images: ["gcr.io/dviper42488/jeeves:$BUILD_ID"]
